@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import health_check, predict   # ← Import from proxy's views.py
+from api.views import health_check, proxy_predict
 
 urlpatterns = [
     path('health/', health_check, name='health'),
-    path('api/predict/', predict, name='predict'),   # This is what React will call
+    path('api/predict/', proxy_predict, name='proxy_predict'),
 ]
