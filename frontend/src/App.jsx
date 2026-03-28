@@ -3,7 +3,6 @@ import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Activity, Heart, CheckCircle, User, Zap, AlertTriangle, Users } from 'lucide-react';
 
-// Use your DigitalOcean proxy URL
 const API_BASE = 'https://symmetra-proxy-p9yr4.ondigitalocean.app';
 
 function App() {
@@ -46,7 +45,7 @@ function App() {
       
       setResults(response.data);
     } catch (err) {
-      console.error(err);
+      console.error("API Error:", err);
       alert("Failed to connect to backend. Make sure the inference server is running on your home VM.");
     }
     
@@ -128,7 +127,6 @@ function App() {
         <div className="bg-zinc-900 rounded-3xl p-10">
           {results ? (
             <div className="space-y-10">
-              {/* Model Status */}
               {results.model_status && (
                 <div className="bg-emerald-950/60 border border-emerald-500/30 p-6 rounded-2xl text-center">
                   <p className="text-emerald-400 font-medium text-lg">
@@ -138,7 +136,6 @@ function App() {
                 </div>
               )}
 
-              {/* Vital Signs */}
               <div className="grid grid-cols-3 gap-6">
                 <div className="bg-zinc-800 p-7 rounded-2xl text-center">
                   <p className="text-zinc-400 text-sm">Systolic BP</p>
@@ -162,7 +159,6 @@ function App() {
                 </div>
               </div>
 
-              {/* ECG Result */}
               <div className="text-center">
                 <p className="text-zinc-400 text-lg">ECG Classification (AAMI 5-Class)</p>
                 <p className="text-4xl font-semibold mt-4 tracking-tight">
@@ -185,7 +181,6 @@ function App() {
         <div className="mt-14">
           <h2 className="text-2xl font-semibold mb-6 text-center">Live Waveforms (Real Data)</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* ECG Waveform */}
             <div className="bg-zinc-900 rounded-3xl p-8">
               <p className="text-zinc-400 mb-4 text-center">ECG Waveform (Real)</p>
               <ResponsiveContainer width="100%" height={320}>
@@ -203,7 +198,6 @@ function App() {
               </ResponsiveContainer>
             </div>
 
-            {/* PPG Waveform */}
             <div className="bg-zinc-900 rounded-3xl p-8">
               <p className="text-zinc-400 mb-4 text-center">PPG Waveform (Real)</p>
               <ResponsiveContainer width="100%" height={320}>
@@ -223,7 +217,6 @@ function App() {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="text-center text-xs text-zinc-500 mt-20">
           Full-Stack AI Demo • Django + React + PyTorch • Real clinical waveforms used • Not for medical diagnosis
         </div>
