@@ -40,7 +40,7 @@ function App() {
     setActiveSample(sampleId);
 
     try {
-      const response = await axios.post(`${API_BASE}/api/predict/`, { 
+      const response = await axios.post(`${API_BASE}/api/api/predict/`, { 
         sample_id: sampleId 
       });
       
