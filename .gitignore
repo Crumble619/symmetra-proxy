@@ -1,6 +1,26 @@
+# Backend / Sensitive files (never upload)
 backend/
 *.pth
 real_ecg/
+
+# Python
+venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Node / Frontend
 node_modules/
 dist/
+
+# Environment
 .env
+*.env
+
+# Logs and temp
+*.log
+staticfiles/
