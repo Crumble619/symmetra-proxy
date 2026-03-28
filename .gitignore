@@ -1,0 +1,6 @@
+backend/
+*.pth
+real_ecg/
+node_modules/
+dist/
+.env
