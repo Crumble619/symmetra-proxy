@@ -15,28 +15,33 @@ def health_check(request):
 
 @api_view(['POST'])
 def proxy_predict(request):
-    """Forward requests to the real hidden backend"""
     real_backend = os.getenv('REAL_BACKEND_URL')
     
     if not real_backend:
-        return Response({"error": "REAL_BACKEND_URL environment variable is not configured"}, status=500)
+        return Response({"error": "REAL_BACKEND_URL is not set"}, status=500)
 
     try:
+        print(f"🔄 Proxy forwarding to: {real_backend}")
+        print(f"📦 Request data: {request.data}")
+
         response = requests.post(
             real_backend,
             json=request.data,
-            timeout=25,
-            headers={"User-Agent": "Symmetra-Proxy"}
+            timeout=40,
+            headers={
+                "Content-Type": "application/json",
+                "User-Agent": "Symmetra-Proxy"
+            }
         )
         
-        return Response(response.json(), status=response.status_code)
+        print(f"✅ Backend responded with status: {response.status_code}")
         
+        return Response(response.json(), status=response.status_code)
+
     except requests.exceptions.RequestException as e:
-        print(f"Proxy forwarding error: {e}")
+        print(f"❌ Forwarding error: {e}")
         return Response({
-            "error": "Cannot reach prediction backend",
-            "detail": "Make sure VS Code tunnel and backend are running"
-        }, status=503)
-    except Exception as e:
-        print(f"Unexpected proxy error: {e}")
-        return Response({"error": "Internal proxy error"}, status=500)
+            "error": "Cannot reach inference backend",
+            "detail": str(e),
+            "backend_url_used": real_backend
+        }, status=502)
